@@ -9,6 +9,7 @@ import datetime
 
 from prac_07.project import Project
 
+
 def main():
     """Run project management program with menu."""
     projects = load_projects("projects.txt")
@@ -24,6 +25,8 @@ def main():
             projects = load_projects(filename)
         elif choice == "d":
             display_projects(projects)
+        elif choice == "f":
+            filter_projects_by_date(projects)
         elif choice == "a":
             add_new_project(projects)
         elif choice == "u":
@@ -49,6 +52,24 @@ def print_menu():
     print("- (A)dd new project  ")
     print("- (U)pdate project")
     print("- (Q)uit")
+
+
+def filter_projects_by_date(projects):
+    """Display projects starting after a given date, sorted by date."""
+    date_str = input("Show projects that start after date (dd/mm/yy): ")
+    filter_date = datetime.datetime.strptime(date_str, "%d/%m/%y").date()
+    filtered = []
+    for project in projects:
+        if project.start_date > filter_date:
+            filtered.append(project)
+    for i in range(len(filtered)):
+        for j in range(i + 1, len(filtered)):
+            if filtered[i].start_date > filtered[j].start_date:
+                temp = filtered[i]
+                filtered[i] = filtered[j]
+                filtered[j] = temp
+    for project in filtered:
+        print(str(project))
 
 
 def save_projects(filename, projects):
