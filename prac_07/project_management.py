@@ -19,13 +19,22 @@ def main():
     while choice != "q":
         print_menu()
         choice = input(">>> ").lower()
-        if choice == "d":
+        if choice == "l":
+            filename = input("Filename: ")
+            projects = load_projects(filename)
+        elif choice == "d":
             display_projects(projects)
         elif choice == "a":
             add_new_project(projects)
         elif choice == "u":
             update_project(projects)
+        elif choice == "s":
+            filename = input("Filename: ")
+            save_projects(filename, projects)
         elif choice == "q":
+            save_choice = input("Would you like to save to projects.txt? ")
+            if save_choice.lower() in ["y", "yes"]:
+                save_projects("projects.txt", projects)
             print("Thank you for using custom-built project management software.")
         else:
             print("Invalid menu choice")
@@ -40,6 +49,19 @@ def print_menu():
     print("- (A)dd new project  ")
     print("- (U)pdate project")
     print("- (Q)uit")
+
+
+def save_projects(filename, projects):
+    """Save projects to tab-delimited file."""
+    out_file = open(filename, 'w')
+    out_file.write("Name\tStart Date\tPriority\tCost Estimate\tCompletion\n")
+    for project in projects:
+        date_str = project.start_date.strftime("%d/%m/%Y")
+        line = (project.name + "\t" + date_str + "\t" +
+                str(project.priority) + "\t" + str(project.cost) + "\t" +
+                str(project.completion) + "\n")
+        out_file.write(line)
+    out_file.close()
 
 
 def update_project(projects):
@@ -96,7 +118,7 @@ def load_projects(filename):
     """Load projects from a tab-delimited file."""
     projects = []
     in_file = open(filename, 'r')
-    in_file.readline()  # Skip header
+    in_file.readline()
     for line in in_file:
         line = line.strip()
         if line != "":
