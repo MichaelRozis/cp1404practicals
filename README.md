@@ -1,7 +1,7 @@
 # CP1404 Practicals Repository
 
 ## About
-This repository contains all practical exercises for **CP1404 Programming II**. I am a EE student from Western Australia where I still wokr today.
+This repository contains all practical exercises for **CP1404 Programming II**. I am a EE student from Western Australia where I still work today.
 
 
 
