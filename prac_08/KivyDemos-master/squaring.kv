@@ -1,0 +1,24 @@
+BoxLayout:
+    orientation: 'vertical'
+
+    # Top section: horizontal layout for input and button
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: 60
+
+        TextInput:
+            id: input_number
+            text: '7'
+            font_size: 48
+            multiline: False
+
+        Button:
+            text: 'Square'
+            on_press: app.handle_calculate()
+
+    # Bottom section: instruction label
+    Label:
+        text: 'Enter a number and press "Square"'
+        font_size: 24
+        color: 1, 0.75, 0.8, 1  # Pink (light magenta)
