@@ -1,38 +1,31 @@
 """
-CP1404/CP5632 Practical
-Demonstrate Taxi inheritance and polymorphism.
+CP1404/CP5632 Practical 9
+Demonstrate Taxi with class variable.
 """
 
 from prac_09.taxi import Taxi
+from prac_09.car import Car  # Only needed for polymorphism demo
 
 
 def main():
-    """Test the Taxi class with realistic usage and demonstrate polymorphism."""
-    # Create a taxi with the exact signature required by the provided class
-    my_taxi = Taxi("Prius 1", 100, 1.23)
+    """Test Taxi class using class variable for consistent pricing."""
+    my_taxi = Taxi("Prius 1", 100)
 
     print(my_taxi)
-    print()
 
-    # First fare
     my_taxi.start_fare()
     my_taxi.drive(40)
-    print("After 40km fare:")
+    print("\nAfter 40km fare:")
     print(my_taxi)
     print(f"Fare: ${my_taxi.get_fare():.2f}")
-    print()
 
-    # Second fare - runs out of fuel part-way
     my_taxi.start_fare()
-    my_taxi.drive(200)   # Only 60 fuel left, so only drives 60km
-    print("After attempting 200km fare (limited by fuel):")
+    my_taxi.drive(200)  # Will only drive remaining 60km due to fuel
+    print("\nAfter attempting 200km (limited by fuel):")
     print(my_taxi)
     print(f"Fare: ${my_taxi.get_fare():.2f}")
-    print()
 
-    # Polymorphism demonstration
-    print("Polymorphism - list of mixed Car and Taxi objects:")
-    from prac_09.car import Car
+    print("\nPolymorphism demonstration:")
     vehicles = [Car("Limo", 100), my_taxi, Car("Truck", 150)]
     for vehicle in vehicles:
         vehicle.drive(30)
